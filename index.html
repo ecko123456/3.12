@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Card Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cardList{
+               display: flex;
+              flex-wrap: wrap;
+            gap: 16px;
+          }
+        .card{
+            width: 300px;
+            height: 400px;
+                border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             font-size: 24px;
+            color: white;
+        }
+        .active{
+            background-color: gray;
+            }
+        .inactive{
+                background-color: steelblue;
+                    color: black;
+                }
+            .content{
+                width: 1400px;
+         }
+    </style>
+
+
+</head>
+<body>
+    <div class="container">
+    <div class="center">
+           <h1>get the least amount of point possible.</h1>
+    </div>
+    <div class="center">
+        <h2></h2>
+    </div>
+    <div class="content">
+        <div class="cardList">
+        </div>
+    </div>
+    <script src="index.js"> </script>
+    </body>
+<script>
+           const cardList = document.querySelector('.cardList');
+    const score = document.querySelector('h2');
+    buildBoard();
+    let interval = setInterval(function(){
+        addCard(cardList.children.length + 1)
+    }, 2000);
+    cardList.addEventListener('click', function(e){
+        console.log(e.target);
+        if (e.target.matches('.cardList')){
+            return
+        }
+        if (e.target.classList.contains('active')){
+            e.target.classList.remove('active');
+            e.target.classList.add('inactive');
+            return
+        }
+        e.target.remove();
+        let children = cardList.children;
+        if (children.length < 1){
+            clearInterval(interval);
+        }
+        value += clickValue
+        score.textContent=`Score: ${value}`
+    });
+    let clickValue = 1;
+    let value = 0;
+    function addCard(value){
+        let card = document.createElement('div');
+        card.classList.add('card');
+        card.classList.add('active');
+        card.innerHTML = value;
+        cardList.appendChild(card);
+    }
+    function buildBoard(){
+        for (let i=0; i<12; i++){
+            addCard('starter');
+        }
+    }
+</script>
+</html>
